@@ -26,7 +26,9 @@ await fastify.register(cookie, {
     secret: process.env.JWT_SECRET || 'fallback-secret-key'
 });
 await fastify.register(cors, {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3012' || 'http://127.0.0.1:3012' || 'http://localhost:3020' || 'http://127.0.0.1:3020',
+    origin: (_, callback) => {
+        callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 });

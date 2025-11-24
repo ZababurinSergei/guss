@@ -31,8 +31,19 @@ await fastify.register(cookie, {
     secret: process.env.JWT_SECRET || 'fallback-secret-key'
 });
 
+
 await fastify.register(cors, {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3012' || 'http://127.0.0.1:3012' || 'http://localhost:3020' || 'http://127.0.0.1:3020',
+    origin: (_, callback) => {
+        // const allowedOrigins = process.env.CORS_ORIGIN
+        //     ? process.env.CORS_ORIGIN.split(',')
+        //     : ['http://localhost:3012','http://127.0.0.1:3012' ];
+        // Разрешить запросы без origin (например, из Postman)
+        // if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        // } else {
+        //     callback(null, false);
+        // }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 });
