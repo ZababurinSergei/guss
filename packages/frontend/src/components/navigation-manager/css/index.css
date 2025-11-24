@@ -1,0 +1,377 @@
+/* components/navigation-manager/css/index.css */
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
+
+navigation-manager {
+    display: flex;
+    min-height: 100vh;
+    /*background:*/
+    /*        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),*/
+    /*        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),*/
+    /*        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.25) 0%, transparent 50%),*/
+    /*        linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);*/
+    position: relative;
+}
+
+/* Космические частицы */
+navigation-manager::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+            radial-gradient(2px 2px at 10% 20%, rgba(255, 255, 255, 0.8) 50%, transparent 50%),
+            radial-gradient(2px 2px at 30% 60%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+            radial-gradient(1px 1px at 50% 10%, rgba(255, 255, 255, 0.7) 50%, transparent 50%),
+            radial-gradient(1px 1px at 70% 40%, rgba(255, 255, 255, 0.5) 50%, transparent 50%),
+            radial-gradient(2px 2px at 90% 70%, rgba(255, 255, 255, 0.6) 50%, transparent 50%),
+            radial-gradient(1px 1px at 20% 90%, rgba(255, 255, 255, 0.4) 50%, transparent 50%);
+    background-repeat: repeat;
+    animation: cosmic-float 6s ease-in-out infinite alternate;
+}
+
+@keyframes cosmic-float {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-10px);
+    }
+}
+
+/* Контейнер приложения */
+#app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* Хедер пользователя */
+.user-header {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg) var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    z-index: 2;
+}
+
+.user-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(120, 119, 198, 0.1),
+            transparent
+    );
+    /*transition: left 0.8s ease;*/
+}
+
+.user-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -12px;
+    height: 100%;
+    background: #0b97c4;
+}
+
+.user-header:hover::before {
+    left: 100%;
+}
+
+.username {
+    color: rgba(255, 255, 255, 0.95);
+    /*font-weight: 600;*/
+    /*font-size: 1.1rem;*/
+    /*!*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*!*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+    /*background-clip: text;*/
+    /*text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);*/
+    /*padding: var(--space-sm) var(--space);*/
+    /*border-radius: 12px;*/
+    /*!*background: rgba(255, 255, 255, 0.05);*!*/
+    /*!*backdrop-filter: blur(10px);*!*/
+    /*border: 1px solid rgba(255, 255, 255, 0.1);*/
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+    color: rgba(254, 226, 226, 0.95);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    /*transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);*/
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+            0 4px 12px rgba(239, 68, 68, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+    );
+    /*transition: left 0.6s ease;*/
+}
+
+.logout-btn:hover::before {
+    left: 100%;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+            0 8px 25px rgba(239, 68, 68, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 100%);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+    box-shadow:
+            0 2px 8px rgba(239, 68, 68, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Основной контент - центрирование */
+#app-container > *:not(.user-header) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    position: relative;
+}
+
+/* Контейнеры для страниц */
+login-page,
+rounds-list,
+round-page {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Анимации появления */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Применение анимаций к компонентам */
+login-page,
+rounds-list,
+round-page {
+    animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-role {
+    color: white;
+}
+
+/* Специфичные стили для центрирования форм */
+login-page {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Улучшенные стили для контейнеров компонентов */
+.login-container,
+.rounds-list-container,
+.round-page-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInScale 0.5s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    navigation-manager {
+        min-height: 100vh;
+    }
+
+    .user-header {
+        padding: var(--space) var(--space-lg);
+        flex-direction: column;
+        gap: var(--space);
+        text-align: center;
+    }
+
+    .username {
+        font-size: 1rem;
+        padding: var(--space-sm);
+    }
+
+    .logout-btn {
+        padding: var(--space-sm) var(--space);
+        font-size: 0.9rem;
+    }
+
+    #app-container > *:not(.user-header) {
+        padding: var(--space-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .user-header {
+        padding: var(--space);
+    }
+
+    .username {
+        font-size: 0.95rem;
+    }
+
+    .logout-btn {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+    }
+
+    #app-container > *:not(.user-header) {
+        padding: var(--space);
+    }
+}
+
+/* Темная тема по умолчанию */
+@media (prefers-color-scheme: dark) {
+    /*navigation-manager {*/
+    /*    background:*/
+    /*            radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.25) 0%, transparent 50%),*/
+    /*            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),*/
+    /*            radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),*/
+    /*            linear-gradient(135deg, #0a081f 0%, #252247 50%, #1c1b2e 100%);*/
+    /*}*/
+}
+
+/* Состояния загрузки */
+.loading-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+}
+
+.loading-state::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 2px solid transparent;
+    border-top: 2px solid rgba(120, 119, 198, 0.8);
+    border-radius: 50%;
+    margin-left: var(--space);
+    animation: spin 1s linear infinite;
+}
+
+/* Улучшенная анимация вращения */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Плавные переходы между страницами */
+navigation-manager {
+    /*view-transition-name: navigation-manager;*/
+}
+
+::view-transition-old(navigation-manager),
+::view-transition-new(navigation-manager) {
+    animation-duration: 0.5s;
+}
+
+/* Оптимизация производительности */
+.user-header,
+.username,
+.logout-btn {
+    will-change: transform, opacity;
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+    navigation-manager::before,
+    .user-header::before,
+    .logout-btn::before {
+        animation: none;
+        transition: none;
+    }
+
+    login-page,
+    rounds-list,
+    round-page,
+    .login-container,
+    .rounds-list-container,
+    .round-page-container {
+        animation: none;
+    }
+}
+
+/* Подсветка фокуса для доступности */
+.logout-btn:focus-visible {
+    outline: 2px solid rgba(120, 119, 198, 0.8);
+    outline-offset: 2px;
+    box-shadow:
+            0 0 0 4px rgba(120, 119, 198, 0.3),
+            0 8px 25px rgba(239, 68, 68, 0.3);
+}

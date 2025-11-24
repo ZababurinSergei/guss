@@ -1,0 +1,47 @@
+/* Стили для скроллбара */
+:root {
+    --scrollbar-opacity: 0;
+    --scrollbar-visibility: hidden;
+    --scrollbar-transition: opacity 0.3s ease, visibility 0.3s ease;
+    --background: white;
+}
+
+/* Для Firefox - делаем трек прозрачным */
+html {
+    scrollbar-width: thin;
+    /*scrollbar-color: rgba(100, 116, 139, 0) transparent;*/
+    /*transition: scrollbar-color 0.3s ease;*/
+    background: var(--background);
+    scrollbar-color: transparent rgba(15, 23, 42, 0.8); /* Для Firefox */
+    scrollbar-width: thin; /* Для Firefox */
+}
+
+
+
+/* Для вебкит браузеров */
+::-webkit-scrollbar {
+    width: 12px;
+    opacity: var(--scrollbar-opacity);
+    visibility: var(--scrollbar-visibility);
+    transition: var(--scrollbar-transition);
+}
+
+
+/* Состояние при прокрутке */
+html.scrolling {
+    --scrollbar-opacity: 1;
+    --scrollbar-visibility: visible;
+}
+
+html.scrolling::-webkit-scrollbar {
+    opacity: 1;
+    visibility: visible;
+}
+
+html.scrolling::-webkit-scrollbar-thumb {
+    opacity: 1;
+}
+
+html.scrolling {
+    scrollbar-color: rgba(100, 116, 139, 0.8) transparent;
+}

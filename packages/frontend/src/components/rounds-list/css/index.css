@@ -1,0 +1,155 @@
+@import url('./01.css');
+
+:host {
+    margin: auto;
+}
+
+#root {
+    width: inherit;
+}
+
+
+.rounds-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space);
+    border-bottom: 2px solid var(--border);
+}
+
+.page-header h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.75rem;
+}
+
+
+.actions-bar {
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.create-round-btn {
+    background: var(--accent);
+    color: white;
+    padding: var(--space) var(--space-xl);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.create-round-btn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.rounds-grid {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.round-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.round-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.round-header {
+    margin-bottom: var(--space);
+}
+
+.round-id {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.round-dates {
+    margin-bottom: var(--space);
+}
+
+.date-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+    font-size: 14px;
+}
+
+.date-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.date-value {
+    color: var(--text);
+    font-family: var(--font-mono);
+}
+
+.round-divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space) 0;
+}
+
+.round-status {
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-sm);
+    border-radius: var(--radius);
+}
+
+.status-cooldown {
+    background: var(--warning-50);
+    color: var(--warning-dark);
+    border: 1px solid var(--warning);
+}
+
+.status-active {
+    background: var(--success-50);
+    color: var(--success-dark);
+    border: 1px solid var(--success);
+}
+
+.status-finished {
+    background: var(--surface-100);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.loading {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-secondary);
+    background: var(--surface-50);
+    border-radius: var(--radius);
+    border: 1px dashed var(--border);
+}

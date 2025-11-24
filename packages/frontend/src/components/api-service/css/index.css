@@ -1,0 +1,119 @@
+/* components/api-service/css/index.css */
+.api-service {
+    display: none; /* Скрываем сервисный компонент */
+}
+
+/* Стили для сообщений об ошибках API */
+.api-error {
+    background: var(--danger-50);
+    color: var(--danger-dark);
+    padding: var(--space);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--danger);
+    font-size: 14px;
+    text-align: center;
+}
+
+.api-error button {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-sm);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.api-error button:hover {
+    background: var(--danger-dark);
+}
+
+/* Индикатор загрузки */
+.api-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary);
+    border-radius: 50%;
+    animation: api-spin 1s linear infinite;
+    margin-right: var(--space-sm);
+}
+
+@keyframes api-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Состояния для элементов во время загрузки */
+.loading-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Уведомления об успешных операциях */
+.api-success {
+    background: var(--success-50);
+    color: var(--success-dark);
+    padding: var(--space);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--success);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Адаптивность для API сообщений */
+@media (max-width: 768px) {
+    .api-error,
+    .api-success {
+        margin: var(--space);
+        font-size: 13px;
+    }
+}
+
+/* Анимации для API взаимодействий */
+@keyframes api-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.api-notification {
+    animation: api-fade-in 0.3s ease-out;
+}
+
+/* Состояния для кнопок API */
+.api-button:disabled {
+    background: var(--surface-300) !important;
+    color: var(--text-tertiary) !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.api-button.loading {
+    position: relative;
+    color: transparent;
+}
+
+.api-button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: api-spin 1s linear infinite;
+}

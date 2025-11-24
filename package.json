@@ -1,0 +1,36 @@
+{
+  "name": "the-last-of-guss-monorepo",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "======= удаление базы данных =======": "",
+    "db:drop": "npm run db:drop --workspace=the-last-of-guss-backend",
+    "db:create": "npm run db:create --workspace=the-last-of-guss-backend",
+    "======= Очистка базы данных =======": "",
+    "db:clear": "npm run db:clear --workspace=the-last-of-guss-backend",
+    "======= Очистка dist =======": "",
+    "database:clean": "npm run clean --workspace=the-last-of-guss-database",
+    "======= Миграции =======": "",
+    "migrate:up": "npm run migrate:up --workspace=the-last-of-guss-backend",
+    "======= Build =======": "",
+    "build:database": "npm run build --workspace=the-last-of-guss-database",
+    "build:backend": "npm run build --workspace=the-last-of-guss-backend",
+    "build:frontend": "node ./build.js guss",
+    "======= Start =======": "",
+    "backend:start": "npm run start --workspace=the-last-of-guss-backend",
+    "proxy": "node proxy-server.js",
+    "======= Система запущена =======": ""
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "http-proxy": "^1.18.1"
+  }
+}

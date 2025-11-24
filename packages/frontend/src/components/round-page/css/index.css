@@ -1,0 +1,250 @@
+/* components/round-page/css/index.css */
+:host {
+    margin: auto;
+    position: relative;
+}
+
+.round-page-container {
+    width: inherit;
+    margin: 0 auto;
+    padding: var(--space-xl);
+    min-width: 22dvw;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.page-header h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.5rem;
+}
+
+.user-info {
+    background: var(--primary);
+    color: white;
+    padding: var(--space-sm) var(--space);
+    border-radius: var(--radius);
+    font-weight: 500;
+}
+
+.back-btn {
+    background: var(--surface-100);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: var(--space-sm) var(--space);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-xl);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    background: var(--surface-200);
+    border-color: var(--border-dark);
+}
+
+.game-area {
+    text-align: center;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.goose-container {
+    margin-bottom: var(--space-xl);
+    font-size: 0.33dvw;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.goose-image {
+    display: inline-block;
+    padding: var(--space);
+    border-radius: var(--radius-lg);
+    transition: var(--transition);
+    background: aqua;
+}
+
+.goose-image.clickable {
+    cursor: pointer;
+}
+
+.goose-image.clickable:hover {
+    transform: scale(1.05);
+}
+
+.goose-image.clickable:active {
+    transform: scale(0.95);
+}
+
+/* Стили для рисунка гуся */
+.goose-art {
+    position: relative;
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+    padding: 1dvw;
+    border-radius: 8px;
+    background: aqua;
+}
+
+
+
+.goose-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 80px;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    border-radius: 50% 40% 40% 50%;
+    box-shadow:
+            inset -5px -5px 10px rgba(0,0,0,0.1),
+            inset 5px 5px 10px rgba(255,255,255,0.5);
+}
+
+.goose-neck {
+    position: absolute;
+    top: -30px;
+    left: 80px;
+    width: 30px;
+    height: 60px;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    border-radius: 15px;
+    transform: rotate(-20deg);
+}
+
+.goose-head {
+    position: absolute;
+    top: -70px;
+    left: 95px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    border-radius: 50%;
+}
+
+.goose-head::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -5px;
+    width: 15px;
+    height: 8px;
+    background: #ff6b6b;
+    border-radius: 4px;
+}
+
+.goose-wings {
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+    border-radius: 40% 50% 50% 40%;
+    transform: rotate(10deg);
+    animation: wingFlap 2s ease-in-out infinite;
+}
+
+@keyframes wingFlap {
+    0%, 100% { transform: rotate(10deg) translateY(0); }
+    50% { transform: rotate(15deg) translateY(-5px); }
+}
+
+.status-message {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--space);
+    padding: var(--space);
+    border-radius: var(--radius);
+}
+
+.status-message.cooldown {
+    background: var(--warning-50);
+    color: var(--warning-dark);
+    border: 1px solid var(--warning);
+}
+
+.status-message.active {
+    background: var(--success-50);
+    color: var(--success-dark);
+    border: 1px solid var(--success);
+}
+
+.timer {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: var(--space);
+    font-family: var(--font-mono);
+}
+
+.user-score {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-50);
+    padding: var(--space);
+    border-radius: var(--radius);
+    border: 1px solid var(--primary-100);
+}
+
+.round-stats {
+    margin-top: var(--space-lg);
+}
+
+.stats-divider {
+    height: 2px;
+    background: var(--border);
+    margin: var(--space-lg) 0;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-row span:first-child {
+    color: var(--text-secondary);
+}
+
+.stat-row span:last-child {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.loading {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Темная тема для гуся */
+[data-theme="dark"] .goose-body,
+[data-theme="dark"] .goose-neck,
+[data-theme="dark"] .goose-head {
+    background: linear-gradient(135deg, #a0a0a0 0%, #808080 100%);
+}
+
+[data-theme="dark"] .goose-wings {
+    background: linear-gradient(135deg, #808080 0%, #606060 100%);
+}

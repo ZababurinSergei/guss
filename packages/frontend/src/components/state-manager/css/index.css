@@ -1,0 +1,139 @@
+/* components/state-manager/css/index.css */
+.state-manager {
+    display: none;
+}
+
+.state-manager.debug {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space);
+    max-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+    font-size: 12px;
+    font-family: var(--font-mono);
+}
+
+.state-manager.debug h3 {
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--primary);
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-xs);
+}
+
+.state-manager.debug .state-section {
+    margin-bottom: var(--space);
+}
+
+.state-manager.debug .state-section h4 {
+    margin: 0 0 var(--space-xs) 0;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.state-manager.debug .state-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.state-manager.debug .state-item:hover {
+    background: var(--surface-100);
+}
+
+.state-manager.debug .state-key {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.state-manager.debug .state-value {
+    color: var(--text);
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.state-manager.debug .state-actions {
+    margin-top: var(--space);
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.state-manager.debug .state-btn {
+    padding: 4px 8px;
+    font-size: 10px;
+    background: var(--surface-200);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.state-manager.debug .state-btn:hover {
+    background: var(--surface-300);
+}
+
+.state-manager.debug .state-btn.primary {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary-dark);
+}
+
+.state-manager.debug .state-btn.primary:hover {
+    background: var(--primary-dark);
+}
+
+.state-manager.debug .state-btn.danger {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger-dark);
+}
+
+.state-manager.debug .state-btn.danger:hover {
+    background: var(--danger-dark);
+}
+
+/* Темная тема */
+[data-theme="dark"] .state-manager.debug {
+    background: var(--surface);
+    border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .state-manager.debug .state-item:hover {
+    background: var(--surface-100);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .state-manager.debug {
+        max-width: 250px;
+        font-size: 11px;
+    }
+
+    .state-manager.debug .state-value {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .state-manager.debug {
+        max-width: 200px;
+        font-size: 10px;
+    }
+
+    .state-manager.debug .state-value {
+        max-width: 80px;
+    }
+}
