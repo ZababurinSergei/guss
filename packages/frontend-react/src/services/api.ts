@@ -1,7 +1,7 @@
 import type { User, Round, TapResult } from '../types';
 
 class ApiService {
-    private baseURL = 'http://localhost:3012/api';
+    private baseURL = '/api';
     private token: string | null = null;
 
     constructor() {
@@ -28,7 +28,6 @@ class ApiService {
             headers['Authorization'] = `Bearer ${this.token}`;
         }
 
-        // Объединить с переданными headers
         if (options.headers) {
             Object.assign(headers, options.headers);
         }
@@ -38,7 +37,6 @@ class ApiService {
             headers,
         };
 
-        // Для POST/PUT запросов без тела убираем Content-Type
         if ((options.method === 'POST' || options.method === 'PUT') && !options.body) {
             delete headers['Content-Type'];
         }
@@ -47,6 +45,11 @@ class ApiService {
             const response = await fetch(url, config);
 
             if (!response.ok) {
+                // Если 401 Unauthorized, удаляем токен
+                if (response.status === 401) {
+                    this.removeToken();
+                }
+
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
             }
@@ -69,8 +72,11 @@ class ApiService {
         try {
             await this.request('/auth/logout', {
                 method: 'POST',
-                body: JSON.stringify({}), // Отправляем пустой объект вместо null
+                body: JSON.stringify({}),
             });
+        } catch (error) {
+            console.error('Logout request failed:', error);
+            // Всегда удаляем токен даже если запрос не удался
         } finally {
             this.removeToken();
         }
@@ -91,14 +97,14 @@ class ApiService {
     async createRound(): Promise<Round> {
         return this.request('/rounds', {
             method: 'POST',
-            body: JSON.stringify({}), // Отправляем пустой объект
+            body: JSON.stringify({}),
         });
     }
 
     async tapRound(roundId: string): Promise<TapResult> {
         return this.request(`/rounds/${roundId}/tap`, {
             method: 'POST',
-            body: JSON.stringify({}), // Отправляем пустой объект
+            body: JSON.stringify({}),
         });
     }
 }

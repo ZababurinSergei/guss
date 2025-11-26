@@ -35,7 +35,7 @@ export const RoundPage: React.FC = () => {
     }, [fetchRound]);
 
     const { startPolling, stopPolling } = usePolling(fetchRound, {
-        interval: 3000,
+        interval: 1000,
         enabled: !!round && (round.status === 'cooldown' || round.status === 'active')
     });
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider, useApp } from './contexts/AppContext';
-import { Layout } from './components/Layout';
 import { LoginPage } from './pages/LoginPage';
 import { RoundsList } from './pages/RoundsList';
 import { RoundPage } from './pages/RoundPage';
@@ -10,6 +9,7 @@ import './index.css';
 const AppContent: React.FC = () => {
     const { user, loading } = useApp();
 
+    // Показываем загрузку только при первоначальной проверке авторизации
     if (loading) {
         return (
             <div style={{
@@ -29,7 +29,7 @@ const AppContent: React.FC = () => {
                         animation: 'spin 1s linear infinite',
                         margin: '0 auto 20px'
                     }}></div>
-                    <div>Загрузка...</div>
+                    <div>Проверка авторизации...</div>
                 </div>
             </div>
         );
@@ -40,14 +40,12 @@ const AppContent: React.FC = () => {
     }
 
     return (
-        <Layout user={user} onLogout={() => {}}>
-            <Routes>
-                <Route path="/" element={<Navigate to="/rounds" replace />} />
-                <Route path="/rounds" element={<RoundsList />} />
-                <Route path="/rounds/:id" element={<RoundPage />} />
-                <Route path="*" element={<Navigate to="/rounds" replace />} />
-            </Routes>
-        </Layout>
+        <Routes>
+            <Route path="/" element={<Navigate to="/rounds" replace />} />
+            <Route path="/rounds" element={<RoundsList />} />
+            <Route path="/rounds/:id" element={<RoundPage />} />
+            <Route path="*" element={<Navigate to="/rounds" replace />} />
+        </Routes>
     );
 };
 

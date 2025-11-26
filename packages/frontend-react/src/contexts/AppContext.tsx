@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { apiService } from '../services/api';
 import type { User, Round } from '../types';
 
@@ -30,10 +30,37 @@ export function AppProvider({ children }: AppProviderProps) {
     const [user, setUser] = useState<User | null>(null);
     const [rounds, setRounds] = useState<Round[]>([]);
     const [currentRound, setCurrentRound] = useState<Round | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Начинаем с true для проверки авторизации
     const [error, setError] = useState<string | null>(null);
     const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
     const [pollingEnabled, setPollingEnabled] = useState(true);
+
+    // Проверяем авторизацию при загрузке приложения
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
+    const checkAuth = async () => {
+        const token = localStorage.getItem('guss-token');
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const response = await apiService.getProfile();
+            setUser(response.user);
+            setError(null);
+        } catch (err) {
+            console.error('Auth check failed:', err);
+            // Если токен невалидный, удаляем его
+            apiService.removeToken();
+            setUser(null);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const login = async (username: string, password: string) => {
         try {

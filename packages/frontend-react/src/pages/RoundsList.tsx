@@ -45,7 +45,7 @@ export const RoundsList: React.FC = () => {
     };
 
     const { startPolling, stopPolling } = usePolling(fetchRounds, {
-        interval: 5000,
+        interval: 1000,
         enabled: true,
     });
 
@@ -159,10 +159,6 @@ export const RoundsList: React.FC = () => {
                             Последнее обновление: {lastUpdate.toLocaleString('ru-RU')}
                         </div>
                     )}
-                </div>
-                <div className={styles.userInfo}>
-                    <span className={styles.username}>{user?.username}</span>
-                    <span className={styles.userRole}>{user?.role}</span>
                 </div>
             </div>
 
