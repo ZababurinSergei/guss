@@ -1,0 +1,377 @@
+/* components/rounds-list/css/01.css адаптированные */
+.roundsListContainer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+}
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space);
+    border-bottom: 2px solid var(--border);
+}
+
+.headerContent h1 {
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--text);
+    font-size: 1.75rem;
+}
+
+.lastUpdate {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-xs);
+}
+
+.username {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.userRole {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    background: var(--surface-100);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+}
+
+.actionsBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding: var(--space);
+    background: var(--surface-50);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.createRoundBtn {
+    background: var(--accent);
+    color: white;
+    padding: var(--space) var(--space-xl);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.createRoundBtn:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.pollingStatus {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.statusIndicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.statusIndicator.active {
+    background: var(--success);
+    animation: pulse 2s infinite;
+}
+
+.statusIndicator.paused {
+    background: var(--warning);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.roundsGrid {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.roundCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.roundCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.roundCard[data-is-active="true"] {
+    border-left: 4px solid var(--success);
+}
+
+.roundCard[data-is-upcoming="true"] {
+    border-left: 4px solid var(--warning);
+}
+
+.roundCard[data-is-finished="true"] {
+    border-left: 4px solid var(--surface-300);
+    opacity: 0.8;
+}
+
+.roundHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space);
+}
+
+.roundId {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.roundDuration {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    background: var(--surface-100);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+}
+
+.roundDates {
+    margin-bottom: var(--space);
+}
+
+.dateRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+    font-size: 14px;
+}
+
+.dateLabel {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.dateValue {
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+.roundDivider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space) 0;
+}
+
+.roundStats {
+    margin-bottom: var(--space);
+}
+
+.statRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+    font-size: 14px;
+}
+
+.statLabel {
+    color: var(--text-secondary);
+}
+
+.statValue {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.countdown {
+    color: var(--warning-dark);
+    font-weight: 600;
+}
+
+.roundStatus {
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-sm);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+}
+
+.statusCooldown {
+    background: var(--warning-50);
+    color: var(--warning-dark);
+    border: 1px solid var(--warning);
+}
+
+.statusActive {
+    background: var(--success-50);
+    color: var(--success-dark);
+    border: 1px solid var(--success);
+}
+
+.statusFinished {
+    background: var(--surface-100);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+/* Состояния загрузки и ошибок */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space);
+    padding: var(--space-xl);
+    color: var(--text-secondary);
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--surface-200);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.errorState {
+    text-align: center;
+    padding: var(--space-xl);
+    background: var(--danger-50);
+    border: 1px solid var(--danger);
+    border-radius: var(--radius);
+}
+
+.errorIcon {
+    font-size: 2rem;
+    margin-bottom: var(--space);
+}
+
+.retryBtn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space);
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: var(--space);
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-secondary);
+    background: var(--surface-50);
+    border-radius: var(--radius);
+    border: 1px dashed var(--border);
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    margin-bottom: var(--space);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .roundsListContainer {
+        padding: var(--space);
+    }
+
+    .pageHeader {
+        flex-direction: column;
+        gap: var(--space);
+    }
+
+    .userInfo {
+        align-items: flex-start;
+    }
+
+    .actionsBar {
+        flex-direction: column;
+        gap: var(--space);
+        align-items: stretch;
+    }
+
+    .roundHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+
+    .dateRow {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+}
+
+.userInfo {
+    background: var(--primary);
+    color: white;
+    padding: var(--space-sm) var(--space);
+    border-radius: var(--radius);
+    font-weight: 500;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+/* Добавить в конец файла RoundsList.module.css */
+
+.userPermissionInfo {
+    background: var(--warning-50);
+    color: var(--warning-dark);
+    padding: var(--space) var(--space-lg);
+    border-radius: var(--radius);
+    border: 1px solid var(--warning);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Адаптивность для панели действий */
+@media (max-width: 768px) {
+    .actionsBar {
+        flex-direction: column;
+        gap: var(--space);
+        align-items: stretch;
+    }
+
+    .userPermissionInfo {
+        text-align: center;
+        order: -1; /* Перемещаем сообщение вверх на мобильных */
+    }
+}

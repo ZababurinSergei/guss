@@ -1,0 +1,139 @@
+/* components/navigation-manager/css/index.css адаптированные */
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
+
+.userHeader {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg) var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    z-index: 2;
+}
+
+.userHeader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(120, 119, 198, 0.1),
+            transparent
+    );
+}
+
+.userHeader:hover::before {
+    left: 100%;
+}
+
+.userInfo {
+    display: flex;
+    gap: 12px;
+}
+
+.username {
+    color: white;
+    font-weight: 500;
+}
+
+.userRole {
+    color: white;
+}
+
+.logoutBtn {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+    color: rgba(254, 226, 226, 0.95);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoutBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.logoutBtn:hover::before {
+    left: 100%;
+}
+
+.logoutBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 100%);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.logoutBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .userHeader {
+        padding: var(--space) var(--space-lg);
+        flex-direction: column;
+        gap: var(--space);
+        text-align: center;
+    }
+
+    .username {
+        font-size: 1rem;
+        padding: var(--space-sm);
+    }
+
+    .logoutBtn {
+        padding: var(--space-sm) var(--space);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .userHeader {
+        padding: var(--space);
+    }
+
+    .username {
+        font-size: 0.95rem;
+    }
+
+    .logoutBtn {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+    }
+}

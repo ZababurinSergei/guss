@@ -34,6 +34,7 @@ await fastify.register(cookie, {
 
 await fastify.register(cors, {
     origin: (_, callback) => {
+        console.log('dddddddddddddddddd', _)
         // const allowedOrigins = process.env.CORS_ORIGIN
         //     ? process.env.CORS_ORIGIN.split(',')
         //     : ['http://localhost:3012','http://127.0.0.1:3012' ];

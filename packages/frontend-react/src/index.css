@@ -1,0 +1,480 @@
+@import url('./scroll.css');
+
+html:not(.loaded) {
+    --scrollbar-transition: none !important;
+}
+
+html:not(.loaded)::-webkit-scrollbar {
+    transition: none !important;
+}
+
+html.no-transitions {
+    --scrollbar-transition: none !important;
+}
+
+html.no-transitions * {
+    transition: none !important;
+    animation: none !important;
+}
+
+html.no-transitions::-webkit-scrollbar {
+    transition: none !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: white; /* Убираем фон у body, оставляя только у html */
+}
+
+html {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+:root {
+    /* Основные цвета - обновленная палитра */
+    --primary: #4e54c8;
+    --primary-dark: #3f43a5;
+    --primary-darker: #323583;
+    --primary-50: #f0f2ff;
+    --primary-100: #e0e7ff;
+
+    --secondary: #8f94fb;
+    --secondary-dark: #767ae9;
+
+    --accent: #ff6b6b;
+    --accent-dark: #ff5252;
+    --accent-darker: #e04848;
+
+    /* Текст */
+    --text: #2d3748;
+    --text-secondary: #718096;
+    --text-tertiary: #a0aec0;
+
+    /* Поверхности */
+    --background: #f7fafc;
+    --surface: #ffffff;
+    --surface-50: #f8fafc;
+    --surface-100: #f1f5f9;
+    --surface-200: #e2e8f0;
+    --surface-300: #cbd5e1;
+
+    /* Границы */
+    --border: #e2e8f0;
+    --border-subtle: #f1f5f9;
+    --border-dark: #cbd5e1;
+
+    /* Семантические цвета */
+    --success: #48bb78;
+    --success-dark: #38a169;
+    --success-50: #f0fff4;
+    --success-100: #c6f6d5;
+
+    --warning: #ed8936;
+    --warning-dark: #dd6b20;
+    --warning-50: #fffaf0;
+    --warning-100: #feebc8;
+
+    --info: #4299e1;
+    --info-dark: #3182ce;
+    --info-50: #ebf8ff;
+    --info-100: #bee3f8;
+
+    --danger: #f56565;
+    --danger-dark: #e53e3e;
+    --danger-50: #fff5f5;
+    --danger-100: #fed7d7;
+
+    /* Тени */
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Анимации */
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Шрифты */
+    --font-main: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
+    /* Радиусы */
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Отступы */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space: 12px;
+    --space-md: 16px;
+    --space-lg: 20px;
+    --space-xl: 24px;
+}
+
+/* Темная тема */
+[data-theme="dark"] {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-darker: #4338ca;
+    --primary-50: #1e1b4b;
+    --primary-100: #312e81;
+
+    --secondary: #818cf8;
+    --secondary-dark: #6366f1;
+
+    --accent: #f87171;
+    --accent-dark: #ef4444;
+    --accent-darker: #dc2626;
+
+    --text: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-50: #1e293b;
+    --surface-100: #334155;
+    --surface-200: #475569;
+    --surface-300: #64748b;
+
+    --border: #334155;
+    --border-subtle: #1e293b;
+    --border-dark: #475569;
+
+    --success: #34d399;
+    --success-dark: #10b981;
+    --success-50: #064e3b;
+    --success-100: #065f46;
+
+    --warning: #fbbf24;
+    --warning-dark: #f59e0b;
+    --warning-50: #78350f;
+    --warning-100: #92400e;
+
+    --info: #60a5fa;
+    --info-dark: #3b82f6;
+    --info-50: #1e3a8a;
+    --info-100: #1e40af;
+
+    --danger: #f87171;
+    --danger-dark: #ef4444;
+    --danger-50: #7f1d1d;
+    --danger-100: #991b1b;
+
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Базовые стили */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    /*background-color: var(--background);*/
+    color: var(--text);
+    line-height: 1.6;
+    transition: var(--transition-slow);
+    overflow-y: scroll;
+}
+
+/* Типография */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: var(--space);
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: var(--space);
+    color: var(--text-secondary);
+}
+
+/* Кнопки */
+button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Формы */
+input, textarea, select {
+    font-family: inherit;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    color: var(--text);
+    transition: var(--transition);
+    outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* Утилиты */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Модальные окна */
+.yato-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.yato-modal-wrapper {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.yato-modal-content {
+    padding: var(--space-xl);
+}
+
+.yato-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space);
+    border-bottom: 1px solid var(--border);
+}
+
+.yato-modal-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.25rem;
+}
+
+.yato-modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: var(--space-xs);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.yato-modal-close-button:hover {
+    background-color: var(--surface-100);
+    color: var(--text);
+}
+
+.yato-modal-body {
+    margin-bottom: var(--space-lg);
+    color: var(--text-secondary);
+}
+
+.yato-modal-footer {
+    display: flex;
+    gap: var(--space);
+    justify-content: flex-end;
+    padding-top: var(--space);
+    border-top: 1px solid var(--border);
+}
+
+.yato-button {
+    padding: var(--space) var(--space-lg);
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.yato-button.primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.yato-button.primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.yato-button.secondary {
+    background-color: var(--surface-100);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.yato-button.secondary:hover {
+    background-color: var(--surface-200);
+    border-color: var(--border-dark);
+}
+
+/* Загрузка */
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    :root {
+        --space-xl: 20px;
+        --space-lg: 16px;
+        --space-md: 12px;
+        --space: 10px;
+    }
+
+    .container {
+        padding: 0 var(--space);
+    }
+
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+    .yato-modal-content {
+        padding: var(--space-lg);
+    }
+
+    .yato-modal-footer {
+        flex-direction: column;
+    }
+
+    .yato-button {
+        width: 100%;
+    }
+}
+
+/* Доступность */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Фокус для доступности */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Высокий контраст */
+@media (prefers-contrast: high) {
+    :root {
+        --border: #000000;
+        --shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="dark"] {
+        --border: #ffffff;
+    }
+}
+
+/* Шрифты */
+@font-face {
+    font-family: 'Rubik';
+    src: local('Rubik'), url('./fonts/Rubik-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: local('Rubik-Bold'), url('./fonts/Rubik-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}

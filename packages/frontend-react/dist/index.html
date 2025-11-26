@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Last of Guss - React</title>
+    <style>
+        /* Prevent flash of unstyled content */
+        html:not(.loaded) {
+            visibility: hidden;
+        }
+
+        /* Loading state */
+        .app-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-Ccbtzqua.js"></script>
+</head>
+<body>
+<!-- Loading screen -->
+<div id="loading" class="app-loading">
+    <div style="text-align: center;">
+        <div class="loading-spinner"></div>
+        <div>Loading The Last of Guss...</div>
+    </div>
+</div>
+
+<!-- React app root -->
+<div id="root"></div>
+
+</body>
+</html>

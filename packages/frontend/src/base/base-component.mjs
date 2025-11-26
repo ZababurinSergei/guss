@@ -282,9 +282,8 @@ export class BaseComponent extends HTMLElement {
     }
 
     async #loadComponentStyles() {
+        const componentTagName = this.constructor.tagName || this.tagName.toLowerCase();
         try {
-            const componentTagName = this.constructor.tagName || this.tagName.toLowerCase();
-
             // Импортируем CSS из виртуального модуля
             const cssModule = await import('virtual:css');
             const componentCSS = cssModule.getCSSForComponent(componentTagName);
@@ -299,7 +298,6 @@ export class BaseComponent extends HTMLElement {
             }
         } catch (error) {
             console.error(`Ошибка загрузки стилей для ${this.constructor.name}:`, error);
-
             // Fallback: пытаемся загрузить через динамический импорт
             try {
                 let cssPath = new URL(`../components/${componentTagName}/css/index.css`, import.meta.url);
