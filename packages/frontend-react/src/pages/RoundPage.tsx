@@ -15,6 +15,7 @@ export const RoundPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [tapping, setTapping] = useState(false);
+    const [showTapEffect, setShowTapEffect] = useState(false);
 
     const fetchRound = useCallback(async () => {
         if (!id) return;
@@ -53,6 +54,8 @@ export const RoundPage: React.FC = () => {
         if (!id || !round || round.status !== 'active' || tapping) return;
 
         setTapping(true);
+        setShowTapEffect(true);
+
         try {
             const result: TapResult = await apiService.tapRound(id);
             console.log('Tap result:', result);
@@ -69,8 +72,13 @@ export const RoundPage: React.FC = () => {
                     total_score: result.total_score
                 });
             }
+
+            // Hide tap effect after animation
+            setTimeout(() => setShowTapEffect(false), 200);
+
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to tap');
+            setShowTapEffect(false);
         } finally {
             setTapping(false);
         }
@@ -79,6 +87,23 @@ export const RoundPage: React.FC = () => {
     const handleBack = () => {
         navigate('/rounds');
     };
+
+    const handleKeyPress = useCallback((event: KeyboardEvent) => {
+        if (event.code === 'Space' && round?.status === 'active') {
+            event.preventDefault();
+            handleTap();
+        }
+        if (event.code === 'Escape') {
+            handleBack();
+        }
+    }, [round, handleTap]);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress);
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleKeyPress]);
 
     const getRoundStatusInfo = () => {
         if (!round) return null;
@@ -130,6 +155,20 @@ export const RoundPage: React.FC = () => {
             return `${minutes}m ${seconds % 60}s`;
         } else {
             return `${seconds}s`;
+        }
+    };
+
+    const formatCountdown = (seconds: number) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        if (hours > 0) {
+            return `${hours}h ${minutes.toString().padStart(2, '0')}m`;
+        } else if (minutes > 0) {
+            return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+        } else {
+            return `${secs}s`;
         }
     };
 
@@ -194,7 +233,7 @@ export const RoundPage: React.FC = () => {
                 </button>
 
                 <div className={styles.pageHeader}>
-                    <h1>Round {round.id}</h1>
+                    <h1>Round {round.id.slice(-6)}</h1>
                     <div className={styles.userInfo}>
                         {user.username} ({user.role})
                     </div>
@@ -205,16 +244,24 @@ export const RoundPage: React.FC = () => {
                         <div
                             className={`${styles.gooseImage} ${
                                 statusInfo?.isClickable && !tapping ? styles.clickable : ''
-                            }`}
+                            } ${showTapEffect ? styles.tapEffect : ''}`}
                             onClick={statusInfo?.isClickable && !tapping ? handleTap : undefined}
-                            style={{ cursor: statusInfo?.isClickable && !tapping ? 'pointer' : 'default' }}
+                            style={{
+                                cursor: statusInfo?.isClickable && !tapping ? 'pointer' : 'default'
+                            }}
                         >
-                            {/* Goose ASCII Art */}
+                            {/* Goose ASCII Art - аналогично веб-компоненту */}
                             <div className={styles.gooseArt}>
-                                <div className={styles.gooseBody}></div>
-                                <div className={styles.gooseNeck}></div>
-                                <div className={styles.gooseHead}></div>
-                                <div className={styles.gooseWings}></div>
+                                <div className={styles.artLine}>            ░░░░░░░░░░░░░░░            </div>
+                                <div className={styles.artLine}>          ░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░           </div>
+                                <div className={styles.artLine}>        ░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░         </div>
+                                <div className={styles.artLine}>        ░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░         </div>
+                                <div className={styles.artLine}>      ░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░       </div>
+                                <div className={styles.artLine}>    ░░▒▒▒▒░░░░▓▓▓▓▓▓▓▓▓▓▓▓░░░░▒▒▒▒░░   </div>
+                                <div className={styles.artLine}>    ░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░▒▒▒▒▒▒▒▒░░   </div>
+                                <div className={styles.artLine}>    ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░   </div>
+                                <div className={styles.artLine}>      ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░     </div>
+                                <div className={styles.artLine}>        ░░░░░░░░░░░░░░░░░░░░░░░░░░     </div>
                             </div>
                         </div>
                     </div>
@@ -225,38 +272,58 @@ export const RoundPage: React.FC = () => {
                                 {statusInfo.displayText}
                             </div>
                             <div className={styles.timer}>
-                                {formatTime(statusInfo.timeLeft)}
+                                {statusInfo.status === 'cooldown'
+                                    ? `До начала: ${formatTime(statusInfo.timeLeft)}`
+                                    : statusInfo.status === 'active'
+                                        ? `До конца: ${formatTime(statusInfo.timeLeft)}`
+                                        : ''
+                                }
                             </div>
                         </>
                     )}
 
                     {round.user_stats && (
                         <div className={styles.userScore}>
-                            Your Score: {round.user_stats.score}
-                            (Taps: {round.user_stats.tap_count})
+                            Ваш счет: {round.user_stats.score} (Тапов: {round.user_stats.tap_count})
                         </div>
                     )}
 
                     <div className={styles.roundStats}>
                         <div className={styles.statsDivider}></div>
                         <div className={styles.statRow}>
-                            <span>Total Round Score:</span>
+                            <span>Общий счет раунда:</span>
                             <span>{round.total_score}</span>
                         </div>
                         <div className={styles.statRow}>
-                            <span>Participants:</span>
-                            <span>{round.participants.length}</span>
+                            <span>Участников:</span>
+                            <span>{round.participants?.length || 0}</span>
                         </div>
                         <div className={styles.statRow}>
-                            <span>Status:</span>
+                            <span>Статус:</span>
                             <span className={`${styles.roundStatus} ${statusInfo?.cssClass}`}>
                                 {round.status}
                             </span>
                         </div>
-                        {round.winner && (
+
+                        {/* Показываем победителя если раунд завершен */}
+                        {round.status === 'finished' && round.winner && (
                             <div className={styles.statRow}>
-                                <span>Winner:</span>
-                                <span>{round.winner.username}</span>
+                                <span>🏆 Победитель:</span>
+                                <span className={styles.winnerInfo}>
+                                    {round.winner.username} ({round.winner.score} очков)
+                                </span>
+                            </div>
+                        )}
+
+                        {/* Альтернативно, если winner не установлен, но есть участники */}
+                        {round.status === 'finished' && !round.winner && round.participants && round.participants.length > 0 && (
+                            <div className={styles.statRow}>
+                                <span>🏆 Победитель:</span>
+                                <span className={styles.winnerInfo}>
+                                    {round.participants.reduce((prev, current) =>
+                                        (prev.score > current.score) ? prev : current
+                                    ).username}
+                                </span>
                             </div>
                         )}
                     </div>
@@ -264,7 +331,13 @@ export const RoundPage: React.FC = () => {
                     {tapping && (
                         <div className={styles.loadingState}>
                             <div className={styles.spinner}></div>
-                            Tapping...
+                            Тапаем...
+                        </div>
+                    )}
+
+                    {statusInfo?.isClickable && (
+                        <div className={styles.tapHint}>
+                            Нажмите на гуся или пробел для тапа!
                         </div>
                     )}
                 </div>
