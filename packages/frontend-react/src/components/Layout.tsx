@@ -1,21 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../contexts/AppContext';
 import styles from './Layout.module.css';
 import type { User } from '../types';
 
 interface LayoutProps {
     user: User;
-    onLogout: () => void;
     children: React.ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
+export const Layout: React.FC<LayoutProps> = ({ user, children }) => {
     const navigate = useNavigate();
+    const { logout } = useApp();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         if (window.confirm('Вы уверены, что хотите выйти?')) {
-            onLogout();
-            navigate('/');
+            try {
+                await logout();
+                navigate('/');
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
         }
     };
 

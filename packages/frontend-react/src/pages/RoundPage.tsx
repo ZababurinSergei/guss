@@ -53,8 +53,8 @@ export const RoundPage: React.FC = () => {
     const handleTap = async () => {
         if (!id || !round || round.status !== 'active' || tapping) return;
 
-        setTapping(true);
-        setShowTapEffect(true);
+        // setTapping(true);
+        // setShowTapEffect(true);
 
         try {
             const result: TapResult = await apiService.tapRound(id);
@@ -158,20 +158,6 @@ export const RoundPage: React.FC = () => {
         }
     };
 
-    const formatCountdown = (seconds: number) => {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-
-        if (hours > 0) {
-            return `${hours}h ${minutes.toString().padStart(2, '0')}m`;
-        } else if (minutes > 0) {
-            return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
-        } else {
-            return `${secs}s`;
-        }
-    };
-
     const statusInfo = getRoundStatusInfo();
 
     if (!user) {
@@ -226,7 +212,7 @@ export const RoundPage: React.FC = () => {
     }
 
     return (
-        <Layout user={user} onLogout={() => navigate('/login')}>
+        <Layout user={user}>
             <div className={styles.roundPageContainer}>
                 <button onClick={handleBack} className={styles.backBtn}>
                     ← Back to Rounds

@@ -20,6 +20,7 @@
     "build:database": "npm run build --workspace=the-last-of-guss-database",
     "build:backend": "npm run build --workspace=the-last-of-guss-backend",
     "build:frontend": "node ./build.js guss",
+    "build:frontend-react": "npm run build --workspace=frontend-react",
     "======= Start =======": "",
     "backend:start": "npm run start --workspace=the-last-of-guss-backend",
     "proxy": "node proxy-server.js",

@@ -40,7 +40,8 @@ export default defineConfig({
                 },
             },
         },
-        outDir: 'dist',
+        outDir: '../public',
+        emptyOutDir: true,
     },
     resolve: {
         alias: {
